@@ -15,13 +15,14 @@
     "build": "node build/build.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "build-storybook": "build-storybook -s public",
-    "lint:commit": "git diff --cached --name-only | grep -e .js$ -e .vue$ | xargs eslint",
-    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+    "precommit": "lint-staged"
   },
-  "pre-commit": [
-    "precommit-msg",
-    "lint:commit"
-  ],
+  "lint-staged": {
+    "*.{js, vue}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
   "dependencies": {
     "normalize.css": "^8.0.0",
     "vue": "^2.5.2",
@@ -53,6 +54,8 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.5",
     "node-notifier": "^5.1.2",
     "node-sass": "^4.8.3",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
@@ -61,7 +64,6 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
-    "pre-commit": "^1.2.2",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.0.1",
     "semver": "^5.3.0",
