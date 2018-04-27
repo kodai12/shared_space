@@ -17,5 +17,9 @@ Vue.component('upload-button', UploadButton);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  delimiters: ["[[", "]]"],
   router,
+  data: {
+    message: 'Hello',
+  },
 })
