@@ -22,3 +22,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## references
 - [Full-stack single page application with Vue.js and Flask](https://codeburst.io/full-stack-single-page-application-with-vue-js-and-flask-b1e036315532)
+- [pre-commitでeslintを走らせてコードを綺麗にしていく](http://fnwiya.hatenablog.com/entry/2017/02/13/210622)
