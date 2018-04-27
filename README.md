@@ -1,25 +1,23 @@
 # shared_space
 
-> A Vue.js project
+ナレッジ共有スペース
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# install front-end dependencies
 npm install
-
+# install back-end dependencies
+pip install -r requirements.txt
 # serve with hot reload at localhost:8080
 npm run dev
-
 # build for production with minification
 npm run build
-
 # build for production and view the bundle analyzer report
 npm run build --report
+# serve by flask
+flask run
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## references
 - [Full-stack single page application with Vue.js and Flask](https://codeburst.io/full-stack-single-page-application-with-vue-js-and-flask-b1e036315532)
-- [pre-commitでeslintを走らせてコードを綺麗にしていく](http://fnwiya.hatenablog.com/entry/2017/02/13/210622)
