@@ -7,7 +7,6 @@
       <input id="loginPassword" class="login__input--password" type="password">
       <button class="login__button--submit" type="submit">Login</button>
     </form>
-    <p>[[ message ]]</p>
   </div>
 </template>
 
