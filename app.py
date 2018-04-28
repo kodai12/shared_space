@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify
 import pymysql
 import configparser
 
+# create custom flask instance
 class CustomFlask(Flask):
   jinja_options = Flask.jinja_options.copy()
   jinja_options.update(dict(
@@ -19,6 +20,7 @@ app = CustomFlask(
   template_folder = './dist'
 )
 
+# read config file
 config = configparser.SafeConfigParser()
 config.read('config.cfg')
 
@@ -38,10 +40,12 @@ def connectDb():
     cursorclass = pymysql.cursors.DictCursor
   )
 
+# route settings
 @app.route('/')
 def index():
   return render_template('index.html')
 
+# api settings
 @app.route('/api/files', methods=['GET'])
 def fetchAllFileData():
   dbh = connectDb()
