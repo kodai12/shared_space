@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 import pymysql
+import configparser
 
 class CustomFlask(Flask):
   jinja_options = Flask.jinja_options.copy()
@@ -18,15 +19,22 @@ app = CustomFlask(
   template_folder = './dist'
 )
 
-app.config.from_pyfile('config.cfg')
+config = configparser.SafeConfigParser()
+config.read('config.cfg')
 
 def connectDb():
+  # 設定ファイルからDB接続情報を読み込み
+  host = config.get('development', 'MYSQL_DATABASE_HOST')
+  user = config.get('development', 'MYSQL_DATABASE_USER')
+  password = config.get('development', 'MYSQL_DATABASE_PASSWORD')
+  db = config.get('development', 'MYSQL_DATABASE_DB')
+
   return pymysql.connect(
-    host        = 'localhost',
-    user        = 'root',
-    password    = 'kodai1209',
-    db          = 'shared_space',
-    charset     = 'utf8mb4',
+    host = host,
+    user = user,
+    password = password,
+    db = db,
+    charset = 'utf8mb4',
     cursorclass = pymysql.cursors.DictCursor
   )
 
