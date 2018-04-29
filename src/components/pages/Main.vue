@@ -20,6 +20,5 @@ export default {
 <style lang="scss" scoped>
 .main-article {
   padding: 30px 50px 0;
-  text-align: center;
 }
 </style>
