@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     handleRemove(file, fileList) {
+      /* eslint-disable */
       console.log(file, fileList);
     },
     handlePreview(file) {
