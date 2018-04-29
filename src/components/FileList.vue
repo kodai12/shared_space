@@ -7,9 +7,9 @@
         class="image">
       <div style="padding: 14px;">
         <h2 class="title">{{ file.title }}</h2>
+        <span class="author">By {{ file.author }}</span>
         <div class="bottom clearfix">
           <time class="time">{{ file.created_at }}</time>
-          <span class="author">{{ file.author }}</span>
           <el-button type="text" class="button">Operating button</el-button>
         </div>
       </div>
@@ -50,8 +50,12 @@ export default {
   color: #999;
 }
 
+.author {
+  margin-top: 12px;
+}
+
 .bottom {
-  margin-top: 13px;
+  margin-top: 12px;
   line-height: 12px;
 }
 
