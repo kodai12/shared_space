@@ -1,19 +1,21 @@
 <template>
-<ul class="file-list">
-  <li
-    class="file-list__item"
-    v-for="file in files"
-    :key="file.id">
-    <img
-      class="preview-img"
-      :src="file.data"
-      alt="">
-    <h2 class="title">{{ file.title }}</h2>
-    <span class="created-at">{{ file.created_at }}</span>
-    <span class="author">{{ file.author }}</span>
-    <a class="img-link" href="#">{{ file.id }}</a>
-  </li>
-</ul>
+<el-row>
+  <el-col :span="8" v-for="(file, index) in files" :key="file.id" :offset="index">
+    <el-card :body-style="{ padding: '0px' }">
+      <img
+        :src="file.data"
+        class="image">
+      <div style="padding: 14px;">
+        <h2 class="title">{{ file.title }}</h2>
+        <div class="bottom clearfix">
+          <time class="time">{{ file.created_at }}</time>
+          <span class="author">{{ file.author }}</span>
+          <el-button type="text" class="button">Operating button</el-button>
+        </div>
+      </div>
+    </el-card>
+  </el-col>
+</el-row>
 </template>
 
 <script>
@@ -41,3 +43,35 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.time {
+  font-size: 13px;
+  color: #999;
+}
+
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.image {
+  width: 100%;
+  display: block;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+
+.clearfix:after {
+  clear: both
+}
+</style>
