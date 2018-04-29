@@ -40,6 +40,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.uploader-block {
+  margin-bottom: 30px;
+}
 .uploader {
   text-align: center;
 }
