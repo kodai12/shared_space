@@ -62,5 +62,9 @@ def fetchAllFileData():
 
   return jsonify(files)
 
+@app.route('/api/login-user', methods=['GET'])
+def fetchLoginUser():
+  return 'sakochi';
+
 if __name__ == '__main__':
   app.run(debug=True)
