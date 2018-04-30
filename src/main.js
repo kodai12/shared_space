@@ -21,8 +21,7 @@ Vue.component('login-form', LoginForm);
 Vue.component('file-list', FileList);
 Vue.component('upload-button', UploadButton);
 
-/* eslint-disable no-unused-vars */
-const app = new Vue({
+new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
   router,
