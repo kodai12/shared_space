@@ -62,11 +62,15 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  &::after { // 3カラムの最終行で左揃えになるように調整
+    content: '';
+    display: block;
+    width: 33.33333%;
+  }
 }
 
 .files-list-item {
   margin-bottom: 30px;
-  width: 400px;
 }
 
 .time {
@@ -92,7 +96,7 @@ export default {
 
 .image {
   object-fit: cover;
-  width: 400px;
+  width: 100%;
   height: 250px;
 }
 
