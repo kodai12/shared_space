@@ -2,8 +2,10 @@
   <el-form
     :model="loginForm"
     :rules="loginRules"
-    ref="loginForm">
+    ref="loginForm"
+    class="login-form">
     <el-form-item
+      class="email"
       label="email"
       prop="email">
       <el-input
@@ -11,6 +13,7 @@
       </el-input>
     </el-form-item>
     <el-form-item
+      class="password"
       label="password"
       prop="password">
       <el-input
@@ -18,8 +21,7 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-      <el-button @click="resetForm('ruleForm')">Reset</el-button>
+      <el-button type="primary" @click="submitForm('ruleForm')">Login</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -70,12 +72,18 @@ export default {
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .email ,
+  .password {
+    width: 20%;
+  }
+}
 </style>
