@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <article class="main-article">
     <UploadButton></UploadButton>
     <FileList></FileList>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -16,3 +16,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.main-article {
+  padding: 30px 50px 0;
+}
+</style>
