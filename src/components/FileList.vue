@@ -1,6 +1,10 @@
 <template>
-<el-row>
-  <el-col :span="8" v-for="(file, index) in files" :key="file.id" :offset="index">
+<el-row class="files-list">
+  <el-col
+    :span="8"
+    v-for="file in files"
+    :key="file.id"
+    class="files-list-item">
     <el-card :body-style="{ padding: '0px' }">
       <img
         :src="file.data"
@@ -10,7 +14,16 @@
         <span class="author">By {{ file.author }}</span>
         <div class="bottom clearfix">
           <time class="time">{{ file.created_at }}</time>
-          <el-button type="text" class="button">Operating button</el-button>
+          <a
+            :href="`./file/${file.id}`"
+            class="files-list-item-link">
+            <el-button
+                type="info"
+                plain
+                class="button">
+              More Info
+            </el-button>
+          </a>
         </div>
       </div>
     </el-card>
@@ -45,28 +58,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.files-list-item {
+  margin-bottom: 30px;
+  width: 400px;
+}
+
 .time {
   font-size: 13px;
   color: #999;
 }
 
 .author {
-  margin-top: 12px;
+  display: block;
+  margin-top: 10px;
 }
 
 .bottom {
+  display: flex;
+  align-items: center;
   margin-top: 12px;
   line-height: 12px;
 }
 
-.button {
-  padding: 0;
-  float: right;
+.files-list-item-link {
+  margin-left: auto;
 }
 
 .image {
-  width: 100%;
-  display: block;
+  object-fit: cover;
+  width: 400px;
+  height: 250px;
 }
 
 .clearfix:before,
