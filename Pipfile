@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+"flake8" = "*"
+"autopep8" = "*"
+flask = "*"
+click = "==6.7"
+itsdangerous = "==0.24"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+Werkzeug = "==0.14.1"
+pymysql = "*"
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+start = "flask run"
+lint = "flake8 . --exclude .git,__pycache__,node_modules,docs/source/conf.py,old,build,dist"
+fix = "autopep8 -ivr . --exclude .git,__pycache__,node_modules,docs/source/conf.py,old,build,dist"
