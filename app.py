@@ -3,23 +3,27 @@ import pymysql
 import configparser
 import werkzeug
 from datetime import datetime
+import os
 
 # create custom flask instance
+
+
 class CustomFlask(Flask):
-  jinja_options = Flask.jinja_options.copy()
-  jinja_options.update(dict(
-    block_start_string='(%',
-    block_end_string='%)',
-    variable_start_string='((',
-    variable_end_string='))',
-    comment_start_string='(#',
-    comment_end_string='#)',
-  ))
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(
+        block_start_string='(%',
+        block_end_string='%)',
+        variable_start_string='((',
+        variable_end_string='))',
+        comment_start_string='(#',
+        comment_end_string='#)',
+    ))
+
 
 app = CustomFlask(
-  __name__,
-  static_folder = './dist/static',
-  template_folder = './dist'
+    __name__,
+    static_folder='./dist/static',
+    template_folder='./dist'
 )
 
 # read config file
@@ -30,67 +34,76 @@ config.read('config.cfg')
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 UPLOAD_DIR = './static/files'
 
-def connectDb():
-  # 設定ファイルからDB接続情報を読み込み
-  host = config.get('development', 'MYSQL_DATABASE_HOST')
-  user = config.get('development', 'MYSQL_DATABASE_USER')
-  password = config.get('development', 'MYSQL_DATABASE_PASSWORD')
-  db = config.get('development', 'MYSQL_DATABASE_DB')
 
-  return pymysql.connect(
-    host = host,
-    user = user,
-    password = password,
-    db = db,
-    charset = 'utf8mb4',
-    cursorclass = pymysql.cursors.DictCursor
-  )
+def connectDb():
+    # 設定ファイルからDB接続情報を読み込み
+    host = config.get('development', 'MYSQL_DATABASE_HOST')
+    user = config.get('development', 'MYSQL_DATABASE_USER')
+    password = config.get('development', 'MYSQL_DATABASE_PASSWORD')
+    db = config.get('development', 'MYSQL_DATABASE_DB')
+
+    return pymysql.connect(
+        host=host,
+        user=user,
+        password=password,
+        db=db,
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
 
 # route settings
+
+
 @app.route('/')
 def index():
-  return render_template('index.html')
+    return render_template('index.html')
 
 # api settings
+
+
 @app.route('/api/files', methods=['GET'])
 def fetchAllFileData():
-  dbh = connectDb()
-  cursor = dbh.cursor()
-  sql = 'select f.id as id, data, '\
-    'title, u.name as author, '\
-    'f.created_at as created_at '\
-    'from files as f join users as u '\
-    'on f.uploader_id = u.id'
-  cursor.execute(sql)
-  files = cursor.fetchall()
-  cursor.close()
-  dbh.close()
+    dbh = connectDb()
+    cursor = dbh.cursor()
+    sql = 'select f.id as id, data, '\
+        'title, u.name as author, '\
+        'f.created_at as created_at '\
+        'from files as f join users as u '\
+        'on f.uploader_id = u.id'
+    cursor.execute(sql)
+    files = cursor.fetchall()
+    cursor.close()
+    dbh.close()
 
-  return jsonify(files)
+    return jsonify(files)
+
 
 @app.route('/api/file', methods=['POST'])
 def uploadFile():
-  if 'file' not in request.files:
-    make_response(jsonify({'result': 'uploadFile is required.'}))
+    if 'file' not in request.files:
+        make_response(jsonify({'result': 'uploadFile is required.'}))
 
-  file = request.files['file']
-  fileName = file.fileuame
-  if '' == fileName:
-    nake_response(jsonify({'result': 'fileName must not empty.'}))
+    file = request.files['file']
+    fileName = file.fileuame
+    if '' == fileName:
+        make_response(jsonify({'result': 'fileName must not empty.'}))
 
-  saveFileName = datetime.now().strftime('%Y%m%d_%H%M%S_') \
-    + werkzeug.utils.secure_filename(fileName)
-  file.save(os.path.join(UPLOAD_DIR, saveFileName))
-  return make_response(jsonify({'result', 'upload is succeeded.'}))
+    saveFileName = datetime.now().strftime('%Y%m%d_%H%M%S_') \
+        + werkzeug.utils.secure_filename(fileName)
+    file.save(os.path.join(UPLOAD_DIR, saveFileName))
+    return make_response(jsonify({'result', 'upload is succeeded.'}))
+
 
 @app.errorhandler(werkzeug.exceptions.RequestEntityTooLarge)
 def handle_over_max_file_size(error):
-  print('werkzeug.exceptions.RequestEntityTooLarge')
-  return 'result: file size is too large.'
+    print('werkzeug.exceptions.RequestEntityTooLarge')
+    return 'result: file size is too large.'
+
 
 @app.route('/api/login-user', methods=['GET'])
 def fetchLoginUser():
-  return 'sakochi';
+    return 'sakochi'
+
 
 if __name__ == '__main__':
-  app.run(debug=True)
+    app.run(debug=True)
