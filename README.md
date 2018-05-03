@@ -20,7 +20,7 @@ npm run build --report
 pipenv run start
 # lint by Flake8
 pipenv run lint
-# format python files by Authopep8
+# format python files by Autopep8
 pipenv run fix
 ```
 
