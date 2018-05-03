@@ -15,8 +15,13 @@ npm run dev
 npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
+
 # serve by flask
-flask run
+pipenv run start
+# lint by Flake8
+pipenv run lint
+# format python files by Authopep8
+pipenv run fix
 ```
 
 ## references
