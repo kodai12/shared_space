@@ -1,6 +1,8 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, make_response
 import pymysql
 import configparser
+import werkzeug
+from datetime import datetime
 
 # create custom flask instance
 class CustomFlask(Flask):
@@ -23,6 +25,10 @@ app = CustomFlask(
 # read config file
 config = configparser.SafeConfigParser()
 config.read('config.cfg')
+
+# file upload settings
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
+UPLOAD_DIR = './static/files'
 
 def connectDb():
   # 設定ファイルからDB接続情報を読み込み
@@ -61,6 +67,26 @@ def fetchAllFileData():
   dbh.close()
 
   return jsonify(files)
+
+@app.route('/api/file', methods=['POST'])
+def uploadFile():
+  if 'file' not in request.files:
+    make_response(jsonify({'result': 'uploadFile is required.'}))
+
+  file = request.files['file']
+  fileName = file.fileuame
+  if '' == fileName:
+    nake_response(jsonify({'result': 'fileName must not empty.'}))
+
+  saveFileName = datetime.now().strftime('%Y%m%d_%H%M%S_') \
+    + werkzeug.utils.secure_filename(fileName)
+  file.save(os.path.join(UPLOAD_DIR, saveFileName))
+  return make_response(jsonify({'result', 'upload is succeeded.'}))
+
+@app.errorhandler(werkzeug.exceptions.RequestEntityTooLarge)
+def handle_over_max_file_size(error):
+  print('werkzeug.exceptions.RequestEntityTooLarge')
+  return 'result: file size is too large.'
 
 @app.route('/api/login-user', methods=['GET'])
 def fetchLoginUser():
