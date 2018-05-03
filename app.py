@@ -34,7 +34,6 @@ config.read('config.cfg')
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 UPLOAD_DIR = './static/files'
 
-
 def connectDb():
     # 設定ファイルからDB接続情報を読み込み
     host = config.get('development', 'MYSQL_DATABASE_HOST')
