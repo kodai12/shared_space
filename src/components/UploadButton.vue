@@ -3,9 +3,8 @@
     class="uploader"
     action="/api/file"
     name="uploadFile"
+    drag
     accept=".jpg, .jpeg, .png, .bmp, .pdf"
-    :on-preview="handlePreview"
-    :on-remove="handleRemove"
     :on-error="handleUploadError"
     :on-change="handleChange"
     :file-list="fileList"
@@ -13,7 +12,7 @@
     <el-button
       size="small"
       type="primary">
-      Click to upload
+      Click/Drag to upload
     </el-button>
     <div slot="tip" class="el-upload__tip">
       jpg/png files with a size less than 500kb
@@ -30,12 +29,8 @@ export default {
   },
   methods: {
     /* eslint-disable */
-    handleRemove(file, fileList) {
-    },
-    handlePreview(file) {
-    },
     handleUploadError(err) {
-      console.error(`error is ${err}`);
+      alert(`error: ${err.message}`);
     },
     handleChange(file, fileList) {
       console.log(file);
@@ -59,6 +54,13 @@ export default {
   }
   .el-upload-list__item {
     width: 30%;
+  }
+  .el-upload-dragger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
   }
 }
 </style>
