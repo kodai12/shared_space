@@ -6,24 +6,27 @@
     :key="file.id"
     class="files-list-item">
     <el-card :body-style="{ padding: '0px' }">
-      <img
+      <embed
+        v-if="file.data.split('.').pop() === 'pdf'"
         :src="file.data"
-        class="image">
+        type="application/pdf"
+        class="file-object">
+      <img
+        v-else
+        :src="file.data"
+        class="file-image">
       <div style="padding: 14px;">
         <h2 class="title">{{ file.title }}</h2>
         <span class="author">By {{ file.author }}</span>
         <div class="bottom clearfix">
           <time class="time">{{ file.created_at }}</time>
-          <a
-            :href="`./file/${file.id}`"
-            class="files-list-item-link">
-            <el-button
-                type="info"
-                plain
-                class="button">
-              More Info
-            </el-button>
-          </a>
+          <el-button
+            type="info"
+            plain
+            @click="previewOn(file)"
+            class="preview-button">
+            More Info
+          </el-button>
         </div>
       </div>
     </el-card>
@@ -33,17 +36,29 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
     return {
-      files: [],
+      files: [
+        {
+          data: '.static/files/arupaka.jpg',
+          title: 'test',
+          author: 'sakochi',
+          created_at: '2018-01-01 00:00:00'
+        }
+      ],
     };
   },
   created() {
     this.fetchAllFileData();
   },
   methods: {
+    ...mapMutations([
+      'togglePreviewModal',
+      'selectFile'
+    ]),
     fetchAllFileData() {
       const url = '/api/files';
       axios.get(url).then((res) => {
@@ -52,6 +67,11 @@ export default {
         /* eslint-disable no-console */
         console.error(err.message);
       });
+    },
+    previewOn(file) {
+      console.log(file);
+      this.togglePreviewModal({ isPreviewOn: true });
+      this.selectFile({ selectedFile: file });
     }
   }
 };
@@ -91,11 +111,16 @@ export default {
   line-height: 12px;
 }
 
+.preview-button {
+  margin-left: auto;
+}
+
 .files-list-item-link {
   margin-left: auto;
 }
 
-.image {
+.file-object,
+.file-image {
   object-fit: cover;
   width: 100%;
   height: 250px;
