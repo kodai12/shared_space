@@ -6,9 +6,15 @@
     :key="file.id"
     class="files-list-item">
     <el-card :body-style="{ padding: '0px' }">
-      <img
+      <embed
+        v-if="file.data.split('.').pop() === 'pdf'"
         :src="file.data"
-        class="image">
+        type="application/pdf"
+        class="file-object">
+      <img
+        v-else
+        :src="file.data"
+        class="file-image">
       <div style="padding: 14px;">
         <h2 class="title">{{ file.title }}</h2>
         <span class="author">By {{ file.author }}</span>
@@ -95,7 +101,8 @@ export default {
   margin-left: auto;
 }
 
-.image {
+.file-object,
+.file-image {
   object-fit: cover;
   width: 100%;
   height: 250px;
