@@ -75,7 +75,7 @@ export default {
   text-align: center;
   .el-upload-list {
     display: flex;
-    flex-basis: column;
+    flex-direction: column;
     align-items: center;
   }
   .el-upload-list__item {
