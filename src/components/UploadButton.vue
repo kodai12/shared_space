@@ -1,49 +1,66 @@
 <template>
-  <div class="uploader-block">
-    <el-upload
-       class="uploader"
-       action=""
-       :on-preview="handlePreview"
-       :on-remove="handleRemove"
-       list-type="picture">
-      <el-button size="small" type="primary">Click to upload</el-button>
-      <div slot="tip" class="el-upload__tip">jpg/png files with a size less than 500kb</div>
-    </el-upload>
-  </div>
+  <el-upload
+    class="uploader"
+    action="/api/file"
+    name="uploadFile"
+    drag
+    accept=".jpg, .jpeg, .png, .bmp, .pdf"
+    :on-error="handleUploadError"
+    :on-change="handleChange"
+    :file-list="fileList"
+    list-type="picture">
+    <el-button
+      size="small"
+      type="primary">
+      Click/Drag to upload
+    </el-button>
+    <div slot="tip" class="el-upload__tip">
+      jpg/png files with a size less than 500kb
+    </div>
+  </el-upload>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      fileList2: [
-        {
-          name: 'food.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        },{
-          name: 'food2.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }
-      ]
+      fileList: [],
     };
   },
   methods: {
-    handleRemove(file, fileList) {
-      /* eslint-disable */
-      console.log(file, fileList);
+    /* eslint-disable */
+    handleUploadError(err) {
+      alert(`error: ${err.message}`);
     },
-    handlePreview(file) {
+    handleChange(file, fileList) {
       console.log(file);
+      console.log(fileList);
+      this.fileList = fileList;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.uploader-block {
+.upload-form {
   margin-bottom: 30px;
 }
-.uploader {
+.uploader /deep/ {
   text-align: center;
+  .el-upload-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .el-upload-list__item {
+    width: 30%;
+  }
+  .el-upload-dragger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+  }
 }
 </style>

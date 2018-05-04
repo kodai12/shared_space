@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, make_response
+from flask import Flask, render_template, jsonify, request
 import pymysql
 import configparser
 import werkzeug
@@ -33,6 +33,7 @@ config.read('config.cfg')
 # file upload settings
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 UPLOAD_DIR = './static/files'
+
 
 def connectDb():
     # 設定ファイルからDB接続情報を読み込み
@@ -79,18 +80,33 @@ def fetchAllFileData():
 
 @app.route('/api/file', methods=['POST'])
 def uploadFile():
-    if 'file' not in request.files:
-        make_response(jsonify({'result': 'uploadFile is required.'}))
+    if 'uploadFile' not in request.files:
+        return 'result: uploadFile is required.'
 
-    file = request.files['file']
-    fileName = file.fileuame
+    file = request.files['uploadFile']
+    fileName = file.filename
     if '' == fileName:
-        make_response(jsonify({'result': 'fileName must not empty.'}))
+        return 'result: fileName must not empty.'
 
     saveFileName = datetime.now().strftime('%Y%m%d_%H%M%S_') \
         + werkzeug.utils.secure_filename(fileName)
-    file.save(os.path.join(UPLOAD_DIR, saveFileName))
-    return make_response(jsonify({'result', 'upload is succeeded.'}))
+    saveFilePath = os.path.join(UPLOAD_DIR, saveFileName)
+    file.save(saveFilePath)
+    saveUploadedFile(saveFilePath)
+    return 'result: upload is succeeded.'
+
+
+def saveUploadedFile(saveFilePath):
+    connection = connectDb()
+    try:
+        with connection.cursor() as cursor:
+            sql = 'insert into files(data, title, uploader_id)' \
+                ' values(%s, %s, %s)'
+            cursor.execute(sql, (saveFilePath, 'test', 1))
+            connection.commit()
+            cursor.close()
+    finally:
+        connection.close()
 
 
 @app.errorhandler(werkzeug.exceptions.RequestEntityTooLarge)

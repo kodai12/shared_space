@@ -49,7 +49,7 @@ export default {
       axios.get(url).then((res) => {
         this.files = res.data;
       }).catch((err) => {
-        /* eslint-disable */
+        /* eslint-disable no-console */
         console.error(err.message);
       });
     }
@@ -62,6 +62,7 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: 30px;
   &::after { // 3カラムの最終行で左揃えになるように調整
     content: '';
     display: block;
