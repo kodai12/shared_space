@@ -20,17 +20,13 @@
         <span class="author">By {{ file.author }}</span>
         <div class="bottom clearfix">
           <time class="time">{{ file.created_at }}</time>
-          <a
-            :href="`./file/${file.id}`"
-            class="files-list-item-link">
-            <el-button
-                type="info"
-                plain
-                @click="previewOn"
-                class="button">
-              More Info
-            </el-button>
-          </a>
+          <el-button
+            type="info"
+            plain
+            @click="previewOn(file)"
+            class="preview-button">
+            More Info
+          </el-button>
         </div>
       </div>
     </el-card>
@@ -60,7 +56,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'togglePreviewModal'
+      'togglePreviewModal',
+      'selectFile'
     ]),
     fetchAllFileData() {
       const url = '/api/files';
@@ -71,8 +68,10 @@ export default {
         console.error(err.message);
       });
     },
-    previewOn() {
+    previewOn(file) {
+      console.log(file);
       this.togglePreviewModal({ isPreviewOn: true });
+      this.selectFile({ selectedFile: file });
     }
   }
 };
@@ -110,6 +109,10 @@ export default {
   align-items: center;
   margin-top: 12px;
   line-height: 12px;
+}
+
+.preview-button {
+  margin-left: auto;
 }
 
 .files-list-item-link {

@@ -8,10 +8,14 @@ export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     isPreviewOn: false,
+    selectedFile: {},
   },
   mutations: {
     togglePreviewModal(state, payload) {
       state.isPreviewOn = payload.isPreviewOn;
+    },
+    selectFile(state, payload) {
+      state.selectedFile = payload.selectedFile;
     }
   },
   getters: {},

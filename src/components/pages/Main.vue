@@ -2,18 +2,26 @@
   <article class="main-article">
     <UploadButton></UploadButton>
     <FileList></FileList>
+    <PreviewModal v-if="isPreviewOn"></PreviewModal>
   </article>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import UploadButton from '@/components/UploadButton';
 import FileList from '@/components/FileList';
+import PreviewModal from '@/components/Preview';
 
 export default {
   components: {
     UploadButton,
-    FileList
-  }
+    FileList,
+    PreviewModal
+  },
+  computed: mapState([
+    'isPreviewOn'
+  ]),
 };
 </script>
 

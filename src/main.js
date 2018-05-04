@@ -5,13 +5,13 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import ja from 'element-ui/lib/locale/lang/ja';
+import router from './router';
+import store from './store';
 
 import Header from './components/Header';
 import LoginForm from './components/LoginForm';
 import FileList from './components/FileList';
 import UploadButton from './components/UploadButton';
-import router from './router';
-import store from './store';
 
 Vue.config.productionTip = false;
 

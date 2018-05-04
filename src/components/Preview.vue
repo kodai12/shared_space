@@ -1,20 +1,34 @@
 <template>
-  <div class="modal-window">
+  <div class="modal-window" @click="hidePreview">
     <div class="modal-container">
-      <object
+      <embed
+        v-if="selectedFile.data.split('.').pop() === 'pdf'"
         class="modal-object"
-        :data="selectedImage">
-      </object>
+        :src="selectedFile.data">
+      <img
+        v-else
+        class="modal-image"
+        :src="selectedFile.data">
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
-  data() {
-    return {
-      selectedImage: './static/files/arupaka.jpg'
-    };
+  computed: mapState([
+    'selectedFile',
+  ]),
+  methods: {
+    ...mapMutations([
+      'togglePreviewModal',
+    ]),
+    hidePreview(e) {
+      if(e.target.className === 'modal-window') {
+        this.togglePreviewModal({ isPreviewOn: false });
+      }
+    }
   }
 };
 </script>
@@ -40,7 +54,8 @@ export default {
   background-color: #fff;
 }
 
-.modal-object {
+.modal-object,
+.modal-image {
   display: block;
   width: 100%;
   height: 100%;
