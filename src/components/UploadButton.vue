@@ -71,7 +71,15 @@ export default {
 .upload-form {
   margin-bottom: 30px;
 }
-.uploader {
+.uploader /deep/ {
   text-align: center;
+  .el-upload-list {
+    display: flex;
+    flex-basis: column;
+    align-items: center;
+  }
+  .el-upload-list__item {
+    width: 30%;
+  }
 }
 </style>
