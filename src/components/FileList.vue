@@ -49,7 +49,7 @@ export default {
       axios.get(url).then((res) => {
         this.files = res.data;
       }).catch((err) => {
-        /* eslint-disable */
+        /* eslint-disable no-console */
         console.error(err.message);
       });
     }

@@ -80,18 +80,18 @@ def fetchAllFileData():
 
 @app.route('/api/file', methods=['POST'])
 def uploadFile():
-    if 'file' not in request.files:
+    if 'uploadFile' not in request.files:
         make_response(jsonify({'result': 'uploadFile is required.'}))
 
-    file = request.files['file']
-    fileName = file.fileuame
+    file = request.files['uploadFile']
+    fileName = file.filename
     if '' == fileName:
         make_response(jsonify({'result': 'fileName must not empty.'}))
 
     saveFileName = datetime.now().strftime('%Y%m%d_%H%M%S_') \
         + werkzeug.utils.secure_filename(fileName)
     file.save(os.path.join(UPLOAD_DIR, saveFileName))
-    return make_response(jsonify({'result', 'upload is succeeded.'}))
+    return make_response(jsonify({'result': 'upload is succeeded.'}))
 
 
 @app.errorhandler(werkzeug.exceptions.RequestEntityTooLarge)
