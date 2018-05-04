@@ -51,16 +51,16 @@ def connectDb():
         cursorclass=pymysql.cursors.DictCursor
     )
 
+
 # route settings
-
-
-@app.route('/')
-def index():
+# ルーティング処理はVueRouterで制御するのでflask側では全てのリクエストにて対しindex.htmlを返す
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
     return render_template('index.html')
 
+
 # api settings
-
-
 @app.route('/api/files', methods=['GET'])
 def fetchAllFileData():
     dbh = connectDb()
