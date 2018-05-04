@@ -26,6 +26,7 @@
             <el-button
                 type="info"
                 plain
+                @click="previewOn"
                 class="button">
               More Info
             </el-button>
@@ -39,17 +40,28 @@
 
 <script>
 import axios from 'axios';
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
     return {
-      files: [],
+      files: [
+        {
+          data: '.static/files/arupaka.jpg',
+          title: 'test',
+          author: 'sakochi',
+          created_at: '2018-01-01 00:00:00'
+        }
+      ],
     };
   },
   created() {
     this.fetchAllFileData();
   },
   methods: {
+    ...mapMutations([
+      'togglePreviewModal'
+    ]),
     fetchAllFileData() {
       const url = '/api/files';
       axios.get(url).then((res) => {
@@ -58,6 +70,9 @@ export default {
         /* eslint-disable no-console */
         console.error(err.message);
       });
+    },
+    previewOn() {
+      this.togglePreviewModal({ isPreviewOn: true });
     }
   }
 };

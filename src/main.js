@@ -11,6 +11,7 @@ import LoginForm from './components/LoginForm';
 import FileList from './components/FileList';
 import UploadButton from './components/UploadButton';
 import router from './router';
+import store from './store';
 
 Vue.config.productionTip = false;
 
@@ -25,6 +26,7 @@ new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
   router,
+  store,
   data: {
     message: 'Hello',
   },
