@@ -1,5 +1,5 @@
 <template>
-  <el-header class="header">
+  <el-header class="header" :style="customHeight">
     <h1 class="heading1">Shared Space For Aratana 18's</h1>
     <div class="login-info" v-if="loginUser">
       <span class="login-user">Login As {{ loginUser }}</span>
@@ -15,6 +15,9 @@ export default {
   data() {
     return {
       loginUser: '',
+      customHeight: {
+        'height': '700px'
+      },
     };
   },
   mounted() {
@@ -37,13 +40,19 @@ export default {
 <style lang="scss" scoped>
 .header {
   display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 30px;
-  background-color: #e8380d;
   color: #fff;
+  background-image: url('~/static/images/aratana18\'s.jpg');
+  background-size: 100vw auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
 }
 .heading1 {
   margin: auto 0;
-  font-size: 18px;
+  font-size: 50px;
 }
 .login-info {
   display: flex;
