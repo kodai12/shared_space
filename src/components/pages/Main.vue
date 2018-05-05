@@ -3,7 +3,10 @@
     <CustomHeader></CustomHeader>
     <article class="main-article">
       <UploadButton></UploadButton>
-      <SortSelect></SortSelect>
+      <nav class="top-nav">
+        <SortSelect></SortSelect>
+        <SearchInput></SearchInput>
+      </nav>
       <FileList></FileList>
       <PreviewModal v-if="isPreviewOn"></PreviewModal>
     </article>
@@ -18,6 +21,7 @@ import UploadButton from '@/components/UploadButton';
 import FileList from '@/components/FileList';
 import PreviewModal from '@/components/Preview';
 import SortSelect from '@/components/SortSelect';
+import SearchInput from '@/components/SearchInput';
 
 export default {
   components: {
@@ -25,7 +29,8 @@ export default {
     UploadButton,
     FileList,
     PreviewModal,
-    SortSelect
+    SortSelect,
+    SearchInput
   },
   computed: mapState([
     'isPreviewOn'
@@ -37,5 +42,9 @@ export default {
 .main-article {
   padding: 30px 50px 0;
   background-color: #e8edee;
+}
+.top-nav {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
