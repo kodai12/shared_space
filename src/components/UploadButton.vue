@@ -33,8 +33,6 @@ export default {
       alert(`error: ${err.message}`);
     },
     handleChange(file, fileList) {
-      console.log(file);
-      console.log(fileList);
       this.fileList = fileList;
     }
   }
@@ -42,10 +40,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.upload-form {
-  margin-bottom: 30px;
-}
 .uploader /deep/ {
+  margin-bottom: 20px;
   text-align: center;
   .el-upload-list {
     display: flex;

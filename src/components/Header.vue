@@ -3,7 +3,6 @@
     <h1 class="heading1">Shared Space For Aratana 18's</h1>
     <div class="login-info" v-if="loginUser">
       <span class="login-user">Login As {{ loginUser }}</span>
-      <a href="#" class="logout-link">Log Out</a>
     </div>
   </el-header>
 </template>
@@ -40,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 30px;
@@ -51,20 +51,16 @@ export default {
   opacity: 0.5;
 }
 .heading1 {
-  margin: auto 0;
   font-size: 50px;
+  margin-bottom: 20px;
 }
 .login-info {
   display: flex;
   flex-direction: column;
-  margin: auto 0 auto auto;
-  font-size: 12px;
-  text-align: right;
+  font-size: 20px;
+  color: #FEDFE1;
 }
 .login-user {
   margin-bottom: 5px;
-}
-.logout-link {
-  color: #fff;
 }
 </style>
