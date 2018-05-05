@@ -45,6 +45,9 @@ export default {
 }
 .top-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  .el-select + .search-input {
+    margin-left: 20px;
+  }
 }
 </style>
