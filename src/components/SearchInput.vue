@@ -2,12 +2,32 @@
   <el-input
     class="search-input"
     placeholder="Search"
-    v-model="searchWord">
+    clearable
+    v-model="searchWord"
+    @change="search"
+    @clear="search">
     <i slot="suffix" class="el-input__icon el-icon-search"></i>
   </el-input>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
+export default {
+  data() {
+    return {
+      searchWord: ''
+    };
+  },
+  methods: {
+    ...mapMutations([
+      'searchByInputWord'
+    ]),
+    search() {
+      this.searchByInputWord({searchWord: this.searchWord});
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
