@@ -5,6 +5,7 @@
     name="uploadFile"
     drag
     accept=".jpg, .jpeg, .png, .bmp, .pdf"
+    :on-success="handleUploadSuccess"
     :on-error="handleUploadError"
     :on-change="handleChange"
     :file-list="fileList"
@@ -29,12 +30,21 @@ export default {
   },
   methods: {
     /* eslint-disable */
+    handleUploadSuccess(err) {
+      this.$message({
+        message: 'Upload Complete',
+        type: 'success',
+        showClose: true
+      });
+    },
     handleUploadError(err) {
-      alert(`error: ${err.message}`);
+      this.$message({
+        message: `error: ${err.message}`,
+        type: 'error',
+        showClose: true
+      });
     },
     handleChange(file, fileList) {
-      console.log(file);
-      console.log(fileList);
       this.fileList = fileList;
     }
   }
@@ -42,10 +52,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.upload-form {
-  margin-bottom: 30px;
-}
 .uploader /deep/ {
+  margin-bottom: 20px;
   text-align: center;
   .el-upload-list {
     display: flex;

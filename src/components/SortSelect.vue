@@ -1,6 +1,6 @@
 <template>
   <el-select
-    v-model="value"
+    v-model="selectedValue"
     default-first-option
     placeholder="Sort By Author"
     @change="changeFileListByAuthor">
@@ -20,6 +20,7 @@ import { mapMutations } from 'vuex';
 export default {
   data() {
     return {
+      selectedValue: '',
       options: [],
     };
   },
@@ -41,6 +42,7 @@ export default {
       });
     },
     changeFileListByAuthor(value) {
+      this.selectedValue = value;
       this.sortByAuthor({ selectedAuthor: value });
     }
   },

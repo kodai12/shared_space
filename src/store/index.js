@@ -10,6 +10,7 @@ export default new Vuex.Store({
     isPreviewOn: false,
     selectedFile: {},
     selectedAuthor: 'all',
+    searchWord: '',
   },
   mutations: {
     togglePreviewModal(state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     sortByAuthor(state, payload) {
       state.selectedAuthor = payload.selectedAuthor;
+    },
+    searchByInputWord(state, payload) {
+      state.searchWord = payload.searchWord;
     }
   },
   getters: {},

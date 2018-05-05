@@ -1,8 +1,11 @@
 <template>
 <el-row class="files-list">
+  <span v-if="files.length === 0">
+    Sorry, Any file you are looking for could not be found.
+  </span>
   <el-col
     :span="8"
-    v-for="file in filesSortedByAuthor"
+    v-for="file in files"
     :key="file.id"
     class="files-list-item">
     <el-card :body-style="{ padding: '0px' }">
@@ -25,7 +28,7 @@
             plain
             @click="previewOn(file)"
             class="preview-button">
-            More Info
+            Preview
           </el-button>
         </div>
       </div>
@@ -41,7 +44,7 @@ import { mapState, mapMutations } from 'vuex';
 export default {
   data() {
     return {
-      files: [
+      defaultFiles: [
         {
           data: '.static/files/arupaka.jpg',
           title: 'test',
@@ -49,16 +52,36 @@ export default {
           created_at: '2018-01-01 00:00:00'
         }
       ],
+      files: [],
     };
   },
   computed: mapState({
     filesSortedByAuthor(state) {
       if(state.selectedAuthor === 'all') {
-        return this.files;
+        return this.defaultFiles;
       }
-      return this.files.filter((el) => el.author === state.selectedAuthor);
+      return this.defaultFiles.filter((el) => el.author === state.selectedAuthor);
+    },
+    filesSortedBySearchWord(state) {
+      if(state.searchWord.length === 0) {
+        return this.defaultFiles;
+      }
+      /* eslint-disable arrow-body-style */
+      return this.defaultFiles.filter((el) => {
+        return el.title.indexOf(state.searchWord) > -1
+          || el.author.indexOf(state.searchWord) > -1
+          || el.data.indexOf(state.searchWord) > -1;
+      });
     }
   }),
+  watch: {
+    filesSortedByAuthor(newArr) {
+      this.files = newArr;
+    },
+    filesSortedBySearchWord(newArr) {
+      this.files = newArr;
+    }
+  },
   created() {
     this.fetchAllFileData();
   },
@@ -70,6 +93,7 @@ export default {
     fetchAllFileData() {
       const url = '/api/files';
       axios.get(url).then((res) => {
+        this.defaultFiles = res.data;
         this.files = res.data;
       }).catch((err) => {
         /* eslint-disable no-console */
@@ -77,7 +101,6 @@ export default {
       });
     },
     previewOn(file) {
-      console.log(file);
       this.togglePreviewModal({ isPreviewOn: true });
       this.selectFile({ selectedFile: file });
     }
