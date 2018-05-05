@@ -25,7 +25,7 @@
             plain
             @click="previewOn(file)"
             class="preview-button">
-            More Info
+            Preview
           </el-button>
         </div>
       </div>
