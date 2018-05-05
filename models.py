@@ -45,6 +45,20 @@ def fetchUsers():
         return user_infos
 
 
+def fetchAllUsers():
+    connection = connectDb()
+    try:
+        with connection.cursor() as cursor:
+            sql = 'select name, password from users'
+            cursor.execute(sql)
+            users = cursor.fetchall()
+            connection.commit()
+            cursor.close()
+    finally:
+        connection.close()
+    return users
+
+
 def fetchAllFileData():
     dbh = connectDb()
     cursor = dbh.cursor()
