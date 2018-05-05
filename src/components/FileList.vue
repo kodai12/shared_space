@@ -2,7 +2,7 @@
 <el-row class="files-list">
   <el-col
     :span="8"
-    v-for="file in files"
+    v-for="file in filesSortedByAuthor"
     :key="file.id"
     class="files-list-item">
     <el-card :body-style="{ padding: '0px' }">
@@ -36,7 +36,7 @@
 
 <script>
 import axios from 'axios';
-import { mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -51,6 +51,14 @@ export default {
       ],
     };
   },
+  computed: mapState({
+    filesSortedByAuthor(state) {
+      if(state.selectedAuthor === 'all') {
+        return this.files;
+      }
+      return this.files.filter((el) => el.author === state.selectedAuthor);
+    }
+  }),
   created() {
     this.fetchAllFileData();
   },

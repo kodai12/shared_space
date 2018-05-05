@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     isPreviewOn: false,
     selectedFile: {},
+    selectedAuthor: 'all',
   },
   mutations: {
     togglePreviewModal(state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     selectFile(state, payload) {
       state.selectedFile = payload.selectedFile;
+    },
+    sortByAuthor(state, payload) {
+      state.selectedAuthor = payload.selectedAuthor;
     }
   },
   getters: {},

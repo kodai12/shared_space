@@ -1,6 +1,7 @@
 <template>
   <article class="main-article">
     <UploadButton></UploadButton>
+    <SortSelect></SortSelect>
     <FileList></FileList>
     <PreviewModal v-if="isPreviewOn"></PreviewModal>
   </article>
@@ -12,12 +13,14 @@ import { mapState } from 'vuex';
 import UploadButton from '@/components/UploadButton';
 import FileList from '@/components/FileList';
 import PreviewModal from '@/components/Preview';
+import SortSelect from '@/components/SortSelect';
 
 export default {
   components: {
     UploadButton,
     FileList,
-    PreviewModal
+    PreviewModal,
+    SortSelect
   },
   computed: mapState([
     'isPreviewOn'

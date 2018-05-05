@@ -4,7 +4,7 @@ import werkzeug
 from datetime import datetime
 import os
 from flask_httpauth import HTTPDigestAuth
-from models import fetchUsers, fetchAllFileData, saveUploadedFile
+from models import fetchUsers, fetchAllFileData, saveUploadedFile, fetchAllUsers
 
 
 # create custom flask instance
@@ -87,9 +87,15 @@ def handle_over_max_file_size(error):
     return 'result: file size is too large.'
 
 
-@app.route('/api/login-user', methods=['GET'])
+@app.route('/api/login-user')
 def fetchLoginUser():
     return 'sakochi'
+
+
+@app.route('/api/users')
+def getAllUsers():
+    all_users = fetchAllUsers()
+    return jsonify(all_users)
 
 
 if __name__ == '__main__':
