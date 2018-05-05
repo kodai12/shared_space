@@ -15,6 +15,7 @@ itsdangerous = "==0.24"
 MarkupSafe = "==1.0"
 Werkzeug = "==0.14.1"
 pymysql = "*"
+flask-httpauth = "*"
 
 [requires]
 python_version = "3.6"
