@@ -35,14 +35,13 @@ app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 UPLOAD_DIR = './static/files'
 
 # auth settings
+app.config['SECRET_KEY'] = 'test'
 auth = HTTPDigestAuth()
 users = fetchUsers()
-app.config['SECRET_KEY'] = 'test'
 
 
 @auth.get_password
 def get_pw(username):
-    print(users)
     if username in users:
         return users.get(username)
     return None

@@ -27,15 +27,22 @@ def fetchUsers():
     connection = connectDb()
     try:
         with connection.cursor() as cursor:
-            sql = 'select name from users'
-            usernames = cursor.execute(sql)
+            sql = 'select name, password from users'
+            cursor.execute(sql)
+            users = cursor.fetchall()
             connection.commit()
             cursor.close()
     finally:
         connection.close()
 
-    if usernames:
-        return usernames
+    if users:
+        user_infos = {}
+        for i in range(len(users)):
+            user_name = users[i]['name']
+            user_password = users[i]['password']
+            user_infos[user_name] = user_password
+
+        return user_infos
 
 
 def fetchAllFileData():
