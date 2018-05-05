@@ -1,7 +1,7 @@
 <template>
   <el-input
     class="search-input"
-    placeholder="Search"
+    placeholder="Search By Word"
     clearable
     v-model="searchWord"
     @change="search"
