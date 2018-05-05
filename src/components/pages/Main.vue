@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-article {
-  padding: 30px 50px 0;
+  padding: 30px 50px;
   background-color: #e8edee;
 }
 .top-nav {

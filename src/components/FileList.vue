@@ -1,5 +1,8 @@
 <template>
 <el-row class="files-list">
+  <span v-if="files.length === 0">
+    Sorry, Any file you are looking for could not be found.
+  </span>
   <el-col
     :span="8"
     v-for="file in files"
