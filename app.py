@@ -5,9 +5,8 @@ import werkzeug
 from datetime import datetime
 import os
 
+
 # create custom flask instance
-
-
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
     jinja_options.update(dict(
