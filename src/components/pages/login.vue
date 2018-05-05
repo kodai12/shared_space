@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-wrapper">
     <LoginForm></LoginForm>
   </div>
 </template>
@@ -13,3 +13,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.login-wrapper {
+  padding-top: 30px;
+}
+</style>
