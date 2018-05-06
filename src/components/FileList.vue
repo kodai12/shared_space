@@ -111,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 .files-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   flex-wrap: wrap;
   margin-top: 30px;
   &::after { // 3カラムの最終行で左揃えになるように調整
